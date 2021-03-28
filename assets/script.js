@@ -6,20 +6,18 @@ const currentDate = moment().format('ddd Do MMM, YYYY')
 let currentTime = ""
 noteArray = [];
 
-// adds current time to header
-currentDay.text(currentDate)
-
-
-// get data from storage
-
-function getData() {
-
+// Gets data from storage and renders on planner
+function renderNotes() {
+    noteArray = JSON.parse(localStorage.getItem("dayNotes"))
+    $(noteArray).each(function () {
+        $("#" + this.id).find("textarea").text(this.note)
+    });
 }
+
 
 function timeUpdate() {
     (setInterval(function () {
         currentTime = moment().format('HH');
-        $("#currentTime").text(currentTime);
         updatePlanner()
     }, 1000))
 }
@@ -31,18 +29,30 @@ function saveData(event) {
     let divId = ($(event.target).parent().attr('id'));
     let note = ($(event.target).siblings('textarea').val())
 
+    // checking that box contains string
     if ($(event.target).siblings('textarea').val()) {
-        noteArray.push({
-            id: divId,
-            note: note,
-        })
-        localStorage.setItem('dayNotes', JSON.stringify(noteArray));
-        save.text("Saved to Local Storage");
-        setTimeout(function () {
-            save.text("");
-        }, 2000);
+        for (var i = 0; i < noteArray.length; i++) {
+            if (noteArray[i].id == divId) {
+                noteArray[i].note = note
+                console.log(noteArray[i].note)
+                localStorage.setItem('dayNotes', JSON.stringify(noteArray));
+                save.text("Saved to Local Storage");
+                setTimeout(function () {
+                    save.text("");
+                }, 2000);
+            } else {
+                noteArray.push({
+                    id: divId,
+                    note: note,
+                })
+                localStorage.setItem('dayNotes', JSON.stringify(noteArray));
+                save.text("Saved to Local Storage");
+                setTimeout(function () {
+                    save.text("");
+                }, 2000);
+            }
+        }
     }
-
 }
 
 // timing function to set colours base on time, moment, current time and if statements
@@ -66,6 +76,8 @@ function updatePlanner() {
 saveButton.on("click", saveData)
 
 timeUpdate()
+
+renderNotes()
 
 // timing()
 
