@@ -25,6 +25,10 @@ textarea {
   white-space: pre-wrap;
 }
 
+.description:focus {
+  background-color:rgb(219, 235, 245, 0.3);
+}
+
 .time-block {
   text-align: center;
   border-radius: 15px;
@@ -61,11 +65,15 @@ textarea {
   border-left: 1px solid black;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
-  background-color: #06aed5;
+  background-color:lightskyblue;
   color: white;
 }
 
 .saveBtn i:hover {
   font-size: 20px;
   transition: all 0.3s ease-in-out;
+}
+
+.time-block:nth-child(9) {
+  margin-bottom: 60px;
 }
