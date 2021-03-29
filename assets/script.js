@@ -1,19 +1,21 @@
 const currentDay = $('#currentDay');
 const saveButton = $(".saveBtn");
 const save = $('#save');
-const currentDate = moment().format('ddd Do MMM, YYYY')
+const currentDate = moment().format('ddd Do MMM, YYYY');
 
-let currentTime = ""
+let currentTime = "";
 noteArray = [];
+
+// adds current time to header
+currentDay.text(currentDate);
 
 // Gets data from storage and renders on planner
 function renderNotes() {
-    noteArray = JSON.parse(localStorage.getItem("dayNotes"))
+    noteArray = JSON.parse(localStorage.getItem("dayNotes")) || [];
     $(noteArray).each(function () {
         $("#" + this.id).find("textarea").text(this.note)
     });
 }
-
 
 function timeUpdate() {
     (setInterval(function () {
@@ -22,38 +24,60 @@ function timeUpdate() {
     }, 1000))
 }
 
-
-// Save Data
+// Save Data if null
 // Need to add check if id exists enhancement
 function saveData(event) {
     let divId = ($(event.target).parent().attr('id'));
-    let note = ($(event.target).siblings('textarea').val())
+    console.log(divId);
+    let newNote = ($(event.target).siblings('textarea').val())
+    console.log(newNote);
 
     // checking that box contains string
     if ($(event.target).siblings('textarea').val()) {
-        for (var i = 0; i < noteArray.length; i++) {
-            if (noteArray[i].id == divId) {
-                noteArray[i].note = note
-                console.log(noteArray[i].note)
-                localStorage.setItem('dayNotes', JSON.stringify(noteArray));
-                save.text("Saved to Local Storage");
-                setTimeout(function () {
-                    save.text("");
-                }, 2000);
-            } else {
-                noteArray.push({
-                    id: divId,
-                    note: note,
-                })
-                localStorage.setItem('dayNotes', JSON.stringify(noteArray));
-                save.text("Saved to Local Storage");
-                setTimeout(function () {
-                    save.text("");
-                }, 2000);
-            }
-        }
+        noteArray.push({
+            id: divId,
+            note: newNote,
+        })
+        localStorage.setItem('dayNotes', JSON.stringify(noteArray));
+        save.text("Saved to Local Storage");
+        setTimeout(function () {
+            save.text("");
+        }, 2000)
     }
 }
+//         if (noteArray !== null) {
+//             noteArray.foreach(function () {
+//                 console.log(this.id);
+//                 if (this.id == divId) {
+//                     this.note = newNote;
+//                     localStorage.setItem('dayNotes', JSON.stringify(noteArray));
+//                 } else {
+//                     noteArray.push({
+//                         id: divId,
+//                         note: newNote,
+//                     })
+//                     localStorage.setItem('dayNotes', JSON.stringify(noteArray));
+//                     save.text("Saved to Local Storage");
+//                     setTimeout(function () {
+//                         save.text("");
+//                     }, 2000)
+//                 }
+//             })
+//         }
+//     } else {
+//         noteArray.push({
+//             id: divId,
+//             note: newNote,
+//         })
+//         localStorage.setItem('dayNotes', JSON.stringify(noteArray));
+//         save.text("Saved to Local Storage");
+//         setTimeout(function () {
+//             save.text("");
+//         }, 2000)
+//     }
+// }
+
+
 
 // timing function to set colours base on time, moment, current time and if statements
 
