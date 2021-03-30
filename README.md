@@ -40,9 +40,9 @@ Planner screen that displays the current date and renders any previously saved n
 
 Time blocks that change colour depending on if the time slot is past, present or future.
 
-Gray = Past
-Blue = Present
-Green = Future
+* Gray = Past
+* Blue = Present
+* Green = Future
 
 ## Save Button
 
