@@ -74,6 +74,8 @@ textarea {
   transition: all 0.3s ease-in-out;
 }
 
+/* add margin to the last planner element to create room
+at the bottom of the screen, improving ui */
 .time-block:nth-child(9) {
   margin-bottom: 60px;
 }
