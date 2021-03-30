@@ -32,7 +32,7 @@ THEN the saved events persist
 
 ## Planner Screen
 
-Planner screen that displays the current date and renders any previously saved note.
+Planner screen that displays the current date and renders any previously saved notes.
 
 ![Planner Screen](images/plannerscreen.png)
 
