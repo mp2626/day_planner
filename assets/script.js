@@ -17,6 +17,7 @@ function renderNotes() {
     });
 }
 
+// timer function that feeds the updatePlaner to adjust planner colors
 function timeUpdate() {
     (setInterval(function () {
         currentTime = moment().format('HH');
@@ -24,20 +25,26 @@ function timeUpdate() {
     }, 1000))
 }
 
-// Save Data if null
-// Need to add check if id exists enhancement
+// checks to see if object exists is so replaces that object note, 
+// if the object does not exist, creates new object for note.
 function saveData(event) {
     let divId = ($(event.target).parent().attr('id'));
-    console.log(divId);
     let newNote = ($(event.target).siblings('textarea').val())
-    console.log(newNote);
 
     // checking that box contains string
     if ($(event.target).siblings('textarea').val()) {
-        noteArray.push({
-            id: divId,
-            note: newNote,
-        })
+
+        let existingNote = noteArray.find(function (note) {
+            return note.id === divId;
+        });
+        if (existingNote) {
+            existingNote.note = newNote;
+        } else {
+            noteArray.push({
+                id: divId,
+                note: newNote,
+            })
+        }
         localStorage.setItem('dayNotes', JSON.stringify(noteArray));
         save.text("Saved to Local Storage");
         setTimeout(function () {
@@ -45,42 +52,8 @@ function saveData(event) {
         }, 2000)
     }
 }
-//         if (noteArray !== null) {
-//             noteArray.foreach(function () {
-//                 console.log(this.id);
-//                 if (this.id == divId) {
-//                     this.note = newNote;
-//                     localStorage.setItem('dayNotes', JSON.stringify(noteArray));
-//                 } else {
-//                     noteArray.push({
-//                         id: divId,
-//                         note: newNote,
-//                     })
-//                     localStorage.setItem('dayNotes', JSON.stringify(noteArray));
-//                     save.text("Saved to Local Storage");
-//                     setTimeout(function () {
-//                         save.text("");
-//                     }, 2000)
-//                 }
-//             })
-//         }
-//     } else {
-//         noteArray.push({
-//             id: divId,
-//             note: newNote,
-//         })
-//         localStorage.setItem('dayNotes', JSON.stringify(noteArray));
-//         save.text("Saved to Local Storage");
-//         setTimeout(function () {
-//             save.text("");
-//         }, 2000)
-//     }
-// }
-
-
 
 // timing function to set colours base on time, moment, current time and if statements
-
 function updatePlanner() {
     divIds = $(".time-block")
 
@@ -99,10 +72,7 @@ function updatePlanner() {
 // events
 saveButton.on("click", saveData)
 
+// calls functions on page load
 timeUpdate()
 
 renderNotes()
-
-// timing()
-
-// console.log($("#09").children("div").text())
