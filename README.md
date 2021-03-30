@@ -48,7 +48,7 @@ Time blocks that change colour depending on if the time slot is past, present or
 
 Save button that stores the data in local storage, or updates the data if changes are made and saved.
 
-Once saved is clicked, displays a message to user notifying that their save was successful.
+Once save is clicked, displays a message to user notifying that their save was successful.
 
 ![Save Screen](images/saveScreen.png)
 
