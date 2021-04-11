@@ -60,11 +60,13 @@ https://github.com/mp2626/day_planner
 
 https://mp2626.github.io/day_planner/
 
-# Programming Languages
+# Programming Languages/API
 
 * HTML
 * CSS
 * JavaScript
+* MomentJS
+* JQuery
 
 # Authors
 Sydney Uni
